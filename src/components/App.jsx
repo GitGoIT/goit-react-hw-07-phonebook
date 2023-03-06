@@ -1,12 +1,21 @@
+import { useEffect } from 'react';
 import { ContactForm } from './ContactForm/ContactForm.jsx';
 import { ContactList } from './ContactList/ContactList.jsx';
 import { Filter } from './Filter/Filter.jsx';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAllContacts, getFilteredContacts } from '../redux/contacts/contacts-selectors';
+import { fetchContacts } from 'redux/contacts/contacts-operations.js';
 
 export const App = () => {
   const filteredContacts = useSelector(getFilteredContacts);
   const allContacts = useSelector(getAllContacts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+  
  
   return (
     <div
@@ -56,3 +65,6 @@ export const App = () => {
     </div>
   );
 };
+
+
+
